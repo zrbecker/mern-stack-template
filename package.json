@@ -3,11 +3,18 @@
   "version": "0.0.1",
   "description": "A template for a MERN stack.",
   "scripts": {
-    "start": "./scripts/start-all",
-    "postinstall": "./scripts/install-all",
+    "start": "./scripts/start-all.sh",
+    "postinstall": "./scripts/install-all.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["mongodb", "express", "react", "node", "reactjs", "nodejs"],
+  "keywords": [
+    "mongodb",
+    "express",
+    "react",
+    "node",
+    "reactjs",
+    "nodejs"
+  ],
   "author": "Zachary Becker",
   "license": "ISC"
 }
