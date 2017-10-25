@@ -17,12 +17,12 @@ app.put('/count', (req, res) => {
   
   if (data && typeof data.increment === 'number') {
     count += data.increment
-  } else if (data && typeof data.reset) {
+  } else if (data && data.reset) {
     count = 0
   } else {
     return res.sendStatus(400)
   }
-  
+
   res.json({count})
 })
 
