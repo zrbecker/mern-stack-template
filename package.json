@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "A template for a MERN stack.",
   "scripts": {
-    "start": "./scripts/start-all.sh",
-    "postinstall": "./scripts/install-all.sh",
+    "start": "node ./scripts/start-all.js",
+    "postinstall": "node ./scripts/install-all.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

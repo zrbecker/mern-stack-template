@@ -3,21 +3,31 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: {
-    app: './src/app/app.jsx',
+    app: ['babel-polyfill', 'whatwg-fetch', './src/app/app.jsx'],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].bundle.js',
   },
   module: {
-    loaders: [{
-      test: /\.jsx$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {presets: ['env', 'react']}
+    loaders: [
+      {
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {presets: ['env', 'react']}
+        },
       },
-    }],
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {presets: ['env']}
+        },
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
