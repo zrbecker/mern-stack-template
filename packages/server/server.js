@@ -3,18 +3,27 @@ const bodyParser = require('body-parser')
 
 const app = express()
 
-let count = 23
+let count = 0
 
 app.use(bodyParser.json())
 
 app.get('/count', (req, res) => {
-    res.json({count})
+  res.set({'Cache-control': 'no-cache'})
+  res.json({count})
 })
 
-app.post('/count', (req, res) => {
-    const newCount = Number(req.body['count'])
-    count = newCount
-    res.send()
+app.put('/count', (req, res) => {
+  const data = req.body
+  
+  if (data && typeof data.increment === 'number') {
+    count += data.increment
+  } else if (data && typeof data.reset) {
+    count = 0
+  } else {
+    return res.sendStatus(400)
+  }
+  
+  res.json({count})
 })
 
 app.listen(3000, () => console.log('http://127.0.0.1:3000'))

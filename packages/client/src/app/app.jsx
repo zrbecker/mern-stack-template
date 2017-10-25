@@ -1,38 +1,27 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
+const Counter = require('./counter')
 
-class Counter extends React.Component {
+class CounterComponent extends React.Component {
   constructor() {
     super()
     this.state = {
       count: 0
     }
+    this.counter = new Counter(100)
+    this.counter.addListener(count => this._countListener(count))
   }
 
-  componentDidMount() {
-    this._loadStateFromServer()
+  _countListener(count) {
+    this.setState({count})
   }
 
   _addOne() {
-    this.setState(
-      prevState => ({count: prevState.count + 1}),
-      () => this._uploadStateToServer())
+    this.counter.addToCount(1)
   }
 
-  _loadStateFromServer() {
-    fetch('/api/count')
-    .then(res => res.json())
-    .then(data => this.setState({count: data.count}))
-    .catch(console.error)
-  }
-
-  _uploadStateToServer() {
-    fetch('/api/count', {
-      method: 'POST',
-      body: JSON.stringify({count: this.state.count}),
-      headers: new Headers({'Content-Type': 'application/json'}),
-    })
-    .catch(console.error)
+  _reset() {
+    this.counter.resetCount()
   }
 
   render() {
@@ -40,9 +29,10 @@ class Counter extends React.Component {
       <div>
         <p>{this.state.count}</p>
         <button onClick={() => this._addOne()}>Add One</button>
+        <button onClick={() => this._reset()}>Reset</button>
       </div>
     )
   }
 }
 
-ReactDOM.render(<Counter />, document.getElementById('root'))
+ReactDOM.render(<CounterComponent />, document.getElementById('root'))
